@@ -1,0 +1,34 @@
+---
+title: "Artic Cod - Ratliff"
+output: html_document
+---
+
+1. Introduction and purpose
+
+2. Data cleaning
+
+```{r, eval=FALSE}
+
+##TODO: load in every data set even with giant files and subset them and then combine, add indicator variable for which place they were discovered in 
+
+EBS82_84 <- read.csv("easternberingseashelf1982_1984.csv")
+EBS85_89 <- read.csv("easternberingseashelf1985_1989.csv")
+EBS90_94 <- read.csv("easternberingseashelf1990_1994.csv")
+EBS95_99 <- read.csv("easternberingseashelf1995_1999.csv")
+EBS00_04<- read.csv("easternberingseashelf2000_2004.csv")
+EBS05_08 <- read.csv("easternberingseashelf2005_2008.csv")
+EBS09_12 <- read.csv("easternberingseashelf2009_2012.csv")
+EBS13_16 <- read.csv("easternberingseashelf2013_2016.csv")
+EBS17 <- read.csv("easternberingseashelf2017.csv")
+NBS82_17 <- read.csv("northberingseashelf1982_2017.csv")
+
+mega <- rbind(EBS82_84, EBS85_89, EBS90_94, EBS95_99, EBS00_04, EBS05_08, EBS09_12, EBS13_16, EBS17, NBS82_17)
+less <- mega[mega$COMMON == "Arctic cod" | mega$SCIENTIFIC == "Boreogadus saida",]
+```
+
+```{r}
+data <- read.csv("cod.csv")
+
+```
+
+
