@@ -3,6 +3,9 @@ title: "Artic Cod - Ratliff"
 output: html_document
 ---
 
+
+ explore factors (including year, location, bottom depth, bottom temperature, surface temperature) that are related to species abundance (measured by kg/hectare in the variable WTCPUE and #/hectare in the variable NUMCPUE). A particular interest is in exploring whether there are any trends in time, temperature, or other factors in the data. 
+
 1. Introduction and purpose
 
 2. Data cleaning
@@ -26,9 +29,23 @@ mega <- rbind(EBS82_84, EBS85_89, EBS90_94, EBS95_99, EBS00_04, EBS05_08, EBS09_
 less <- mega[mega$COMMON == "Arctic cod" | mega$SCIENTIFIC == "Boreogadus saida",]
 ```
 
-```{r}
-data <- read.csv("cod.csv")
 
+```{r}
+
+
+#difficult to perform mean imputation with categorical items (stratum), seems to be MCAR no trends so just ignore it
+data <- read.csv("cod.csv")
+data[data==-9999.0] <- NA
+data <- data[complete.cases(data)==TRUE,]
+data$STATION = as.factor(data$STATION)
+data$STRATUM = as.factor(data$STRATUM)
 ```
 
+
+3. The model
+
+```{r}
+mod <- lm(WTCPUE ~ LATITUDE +LONGITUDE+ STATION+ STRATUM+ YEAR+ BOT_DEPTH+  BOT_TEMP+ SURF_TEMP+ VESSEL+ CRUISE+ HAUL, data = data)
+step <- step(mod)
+```
 
